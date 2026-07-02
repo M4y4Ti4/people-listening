@@ -37,11 +37,9 @@ SCALES = {
     "chromatic":    [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
 }
 
-ROOT_NOTE = 60   # Middle C (C4) — change to suit your key
-                 # 60=C, 61=C#, 62=D, 63=D#, 64=E, 65=F
-                 # 66=F#, 67=G, 68=G#, 69=A, 70=A#, 71=B
+ROOT_NOTE = 60  #middle C
 
-SCALE = SCALES["pentatonic"]  # ✅ change this to try different scales
+SCALE = SCALES["blues"]  
 
 def snap_to_scale(pitch, root, scale):
     """Snaps a MIDI pitch to the nearest note in the given scale"""
@@ -69,6 +67,8 @@ def draw_dashed_line(frame, x, dash_length=20, gap_length=10, color=(0, 0, 255),
         y_end = min(y + dash_length, frame_height)
         cv2.line(frame, (x, y), (x, y_end), color, thickness)
         y += dash_length + gap_length
+
+crossed_ids = set()  # stores which detections have already played a note
 
 while cap.isOpened():
     ret, frame = cap.read()
